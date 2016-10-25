@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import { requestTodos } from './actions/todo_actions';
 import allTodos from './reducers/selector';
+import Root from './components/root';
 
 document.addEventListener("DOMContentLoaded", () => {
+  const store = configureStore();
+
   ReactDOM.render(
-    <h1>Todos App</h1>,
+    <Root store={store}/>,
       document.getElementById('content'));
 
-  const store = configureStore();
   window.store = store;
   window.$ = $;
   window.requestTodos = requestTodos;
