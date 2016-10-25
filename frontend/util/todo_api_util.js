@@ -21,7 +21,7 @@ export const createTodo = (data, success, error) => {
   $.ajax({
     method: "POST",
     url: 'api/todos',
-    data,
+    data: {todo: data},
     success,
     error
   });
@@ -31,7 +31,7 @@ export const updateTodo = (id, data, success, error) => {
   $.ajax({
     method: "PATCH",
     url: `api/todos/${id}`,
-    data,
+    data: {todo: data},
     success,
     error
   });

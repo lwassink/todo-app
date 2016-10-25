@@ -1,15 +1,22 @@
-import { REQUEST_TODOS, receiveTodos } from '../actions/todo_actions';
-import { fetchTodos } from '../util/todo_api_util';
+import { REQUEST_TODOS, receiveTodos, CREATE_TODO, receiveTodo } from '../actions/todo_actions';
+import { fetchTodos, createTodo } from '../util/todo_api_util';
 
 const TodoMiddleware = store => next => action => {
+  let success;
+  const error = e => console.log(e);
 
   switch (action.type) {
     case REQUEST_TODOS:
-      const success = data => {
+      success = data => {
         store.dispatch(receiveTodos(data));
       };
-      const error = e => console.log(e);
       fetchTodos(success, error);
+      return next(action);
+    case CREATE_TODO:
+      success = todo => {
+        store.dispatch(receiveTodo(todo));
+      };
+      createTodo(action.todo, success, error);
       return next(action);
     default:
       return next(action);
